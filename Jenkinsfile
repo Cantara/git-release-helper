@@ -25,7 +25,6 @@ pipeline {
     tools {
         go 'Go 1.20'
         maven 'Mvn'
-        git 'git-tool'
     }
     environment {
         NEXUS_CREDS = credentials('Cantara-NEXUS')
