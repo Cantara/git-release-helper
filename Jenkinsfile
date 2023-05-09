@@ -4,6 +4,11 @@ def release = false
 def choices = []
 
 node() {
+    stage('prepare git tags') {
+        catchError {
+            sh (script: "git pull --tag")
+        }
+    }
     stage('prepare choices') {
         choices = sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim()
     }
