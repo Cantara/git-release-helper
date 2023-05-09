@@ -3,6 +3,13 @@ def outFile
 def release = false
 pipeline {
     agent any
+    parameters {
+        choice(
+            choices: sh (git tag | git-release-helper | git-release-helper-next).trim(),
+            description: 'New version',
+            name: 'Version'
+        )
+    }
     tools {
         go 'Go 1.20'
         maven 'Mvn'
@@ -18,7 +25,7 @@ pipeline {
                         vers = "${env.TAG_NAME}"
                         release = true
                     } else {
-                        vers = "${env.GIT_COMMIT}"
+                        vers = sh (git-release-helper-new).trim()
                     }
                     artifactId = "git-release-helper"
                     outFile = "${artifactId}-${vers}"
