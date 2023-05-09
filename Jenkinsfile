@@ -4,11 +4,11 @@ def release = false
 pipeline {
     agent any
     parameters {
-        choice(
-            choices: sh (git tag | git-release-helper | git-release-helper-next).trim(),
-            description: 'New version',
-            name: 'Version'
-        )
+        #choice(
+        #    choices: sh (git tag | git-release-helper | git-release-helper-next).trim(),
+        #    description: 'New version',
+        #    name: 'Version'
+        #)
     }
     tools {
         go 'Go 1.20'
@@ -55,9 +55,11 @@ pipeline {
                     echo 'deplying the application...'
                     echo "deploying version ${vers}"
                     if (release) {
-                        //sh "find . -name '${outFile}-*' -type f -exec curl -v -u "+'$NEXUS_CREDS'+" --upload-file {} https://mvnrepo.cantara.no/content/repositories/releases/no/cantara/gotools/${artifactId}/${vers}/{}  \\;"
+                        sh "find . -name '${outFile}-*' -type f -exec curl -v -u "+'$NEXUS_CREDS'+" --upload-file {} https://mvnrepo.cantara.no/content/repositories/releases/no/cantara/gotools/${artifactId}/${vers}/{}  \\;"
+                        sh "cd next && find . -name '${outFile}-*' -type f -exec curl -v -u "+'$NEXUS_CREDS'+" --upload-file {} https://mvnrepo.cantara.no/content/repositories/releases/no/cantara/gotools/${artifactId}/${vers}/next/{}  \\;"
                     } else {
-                        //sh "find . -name '${outFile}-*' -type f -exec curl -v -u "+'$NEXUS_CREDS'+" --upload-file {} https://mvnrepo.cantara.no/content/repositories/snapshots/no/cantara/gotools/${artifactId}/${vers}/{}  \\;"
+                        sh "find . -name '${outFile}-*' -type f -exec curl -v -u "+'$NEXUS_CREDS'+" --upload-file {} https://mvnrepo.cantara.no/content/repositories/snapshots/no/cantara/gotools/${artifactId}/${vers}/{}  \\;"
+                        sh "cd next && find . -name '${outFile}-*' -type f -exec curl -v -u "+'$NEXUS_CREDS'+" --upload-file {} https://mvnrepo.cantara.no/content/repositories/snapshots/no/cantara/gotools/${artifactId}/${vers}/next/{}  \\;"
                     }
                     sh "rm ${outFile}-*"
                 }
@@ -74,4 +76,13 @@ def testApp() {
 def buildApp(outFile, vers) {
     echo 'building the application...'
     //buildFlags = "-X 'github.com/cantara/gober/webserver/health.Version=${vers}' -X 'github.com/cantara/gober/webserver/health.BuildTime=\$(date)' -X 'github.com/cantara/gober/webserver.Name=${artifactId}' "
+    sh "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${outFile}-linux-amd64"
+    sh "CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ${outFile}-linux-arm64"
+    sh "CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ${outFile}-darwin-amd64"
+    sh "CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o ${outFile}-darwin-arm64"
+
+    sh "cd next && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ${outFile}-linux-amd64"
+    sh "cd next && CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ${outFile}-linux-arm64"
+    sh "cd next && CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o ${outFile}-darwin-amd64"
+    sh "cd next && CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o ${outFile}-darwin-arm64"
 }
