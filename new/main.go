@@ -11,6 +11,7 @@ import (
 	"github.com/cantara/buri/version/snapshot"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/revlist"
 	"golang.org/x/exp/slog"
 )
 
@@ -76,20 +77,36 @@ func main() {
 		log.WithError(err).Fatal("while getting git head")
 		return
 	}
-	hco, err := r.CommitObject(ref.Hash())
+	hos, err := revlist.Objects(r.Storer, []plumbing.Hash{ref.Hash()}, nil)
 	if err != nil {
 		log.WithError(err).Fatal("while getting head commit object")
 		return
 	}
-	tco, err := r.CommitObject(hash)
+	tos, err := revlist.Objects(r.Storer, []plumbing.Hash{hash}, nil)
 	if err != nil {
 		log.WithError(err).Fatal("while getting head commit object")
 		return
+	}
+	hs := 0
+	for _, h := range hos {
+		_, err := r.Storer.EncodedObject(plumbing.CommitObject, h)
+		if err != nil {
+			continue
+		}
+		hs++
+	}
+	ts := 0
+	for _, h := range tos {
+		_, err := r.Storer.EncodedObject(plumbing.CommitObject, h)
+		if err != nil {
+			continue
+		}
+		ts++
 	}
 	sv := snapshot.Version{
 		Version:   *newest,
 		TimeStamp: time.Now(),
-		Iteration: len(hco.ParentHashes) - len(tco.ParentHashes) + 1,
+		Iteration: hs - ts + 1,
 	}
 	fmt.Println(sv.String())
 }
