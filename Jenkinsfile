@@ -3,13 +3,6 @@ def outFile
 def release = false
 pipeline {
     agent any
-    parameters {
-        #choice(
-        #    choices: sh (git tag | git-release-helper | git-release-helper-next).trim(),
-        #    description: 'New version',
-        #    name: 'Version'
-        #)
-    }
     tools {
         go 'Go 1.20'
         maven 'Mvn'
