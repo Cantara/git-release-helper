@@ -5,7 +5,7 @@ pipeline {
     agent any
     parameters {
         choice(
-            choices: sh (git tag | git-release-helper | git-release-helper-next).trim(),
+            choices: sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim(),
             description: 'New version',
             name: 'Version'
         )
