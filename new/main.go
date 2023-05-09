@@ -68,21 +68,12 @@ func main() {
 		log.WithError(err).Fatal("during tag iteration")
 		return
 	}
-	if newest == nil {
-		fmt.Print("v0.0.0")
-		return
-	}
 	ref, err := r.Head()
 	if err != nil {
 		log.WithError(err).Fatal("while getting git head")
 		return
 	}
 	hos, err := revlist.Objects(r.Storer, []plumbing.Hash{ref.Hash()}, nil)
-	if err != nil {
-		log.WithError(err).Fatal("while getting head commit object")
-		return
-	}
-	tos, err := revlist.Objects(r.Storer, []plumbing.Hash{hash}, nil)
 	if err != nil {
 		log.WithError(err).Fatal("while getting head commit object")
 		return
@@ -95,6 +86,26 @@ func main() {
 		}
 		hs++
 	}
+	if newest == nil {
+		sv := snapshot.Version{
+			Version: release.Version{
+				Major: 0,
+				Minor: 0,
+				Patch: 0,
+				Style: release.GoStyle,
+			},
+			TimeStamp: time.Now(),
+			Iteration: hs,
+		}
+		fmt.Println(sv.String())
+		return
+	}
+
+	tos, err := revlist.Objects(r.Storer, []plumbing.Hash{hash}, nil)
+	if err != nil {
+		log.WithError(err).Fatal("while getting head commit object")
+		return
+	}
 	ts := 0
 	for _, h := range tos {
 		_, err := r.Storer.EncodedObject(plumbing.CommitObject, h)
@@ -103,6 +114,8 @@ func main() {
 		}
 		ts++
 	}
+	newest.Patch++
+	newest.Style = release.GoStyle
 	sv := snapshot.Version{
 		Version:   *newest,
 		TimeStamp: time.Now(),
