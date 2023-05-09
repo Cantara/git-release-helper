@@ -19,3 +19,7 @@
 
 # Go workspace file
 go.work
+
+new/new
+next/next
+git-release-helper
