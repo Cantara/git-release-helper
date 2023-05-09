@@ -25,7 +25,7 @@ pipeline {
                         vers = "${env.TAG_NAME}"
                         release = true
                     } else {
-                        vers = sh (git-release-helper-new).trim()
+                        vers = sh (script: "git-release-helper-new", returnStdout: true).trim()
                     }
                     artifactId = "git-release-helper"
                     outFile = "${artifactId}-${vers}"
