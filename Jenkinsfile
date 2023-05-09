@@ -1,11 +1,18 @@
 def vers
 def outFile
 def release = false
+def choices = []
+
+node('master') {
+    stage('prepare choices') {
+        choices = sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim().split("\n")
+    }
+}
 pipeline {
     agent any
     parameters {
         choice(
-            choices: sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim(),
+            choices: choices,
             description: 'New version',
             name: 'Version'
         )
