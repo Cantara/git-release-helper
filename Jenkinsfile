@@ -5,7 +5,7 @@ def choices = []
 
 node() {
     stage('prepare choices') {
-        choices = sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim().split("\n")
+        choices = sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim()
     }
 }
 pipeline {
