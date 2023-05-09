@@ -1,13 +1,8 @@
 def vers
 def outFile
 def release = false
-def choices = []
+def choices = sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim().split("\n")
 
-node('master') {
-    stage('prepare choices') {
-        choices = sh (script: "git tag | git-release-helper | git-release-helper-next", returnStdout: true).trim().split("\n")
-    }
-}
 pipeline {
     agent any
     parameters {
