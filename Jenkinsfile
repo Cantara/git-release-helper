@@ -5,8 +5,10 @@ def choices = []
 
 node() {
     stage('prepare git tags') {
-        catchError {
+        try {
             sh (script: "git pull --tag")
+        } catch (err) {
+            echo err.getMessage()
         }
     }
     stage('prepare choices') {
