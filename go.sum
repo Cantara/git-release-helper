@@ -9,8 +9,8 @@ github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be/go.mod h1:ySMOLuW
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPdPJAN/hZIm0C4OItdklCFmMRWYpio=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=
 github.com/bwesterb/go-ristretto v1.2.0/go.mod h1:fUIoIZaG73pV5biE2Blr2xEzDoMj7NFEuV9ekS419A0=
-github.com/cantara/bragi v0.7.1 h1:Kf09cw56kePRvyTSPmTsl6xTC7To8F8+VStO5PoM6Ng=
-github.com/cantara/bragi v0.7.1/go.mod h1:btpJS4I5xGUohgnno50o8XD1qysPjozSrUzDjWr2W6Q=
+github.com/cantara/bragi v0.7.2 h1:jKDxuRSessMqYUjIU+mKr9FQ5RwhUiIGVWK3FdbyTD4=
+github.com/cantara/bragi v0.7.2/go.mod h1:btpJS4I5xGUohgnno50o8XD1qysPjozSrUzDjWr2W6Q=
 github.com/cantara/buri v0.11.9 h1:yLobOiJnsynstgfDlth9J4cbrH1zKKnPUK9fn0gkm14=
 github.com/cantara/buri v0.11.9/go.mod h1:wPw2JegB5wDyllXr4vLRtm2S7d32jLLZwLtKrhArZow=
 github.com/cloudflare/circl v1.1.0 h1:bZgT/A+cikZnKIwn7xL2OBj012Bmvho/o6RpRvv3GKY=
