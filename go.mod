@@ -6,7 +6,7 @@ toolchain go1.21.0
 
 require (
 	github.com/cantara/bragi v0.7.2
-	github.com/cantara/buri v0.12.0
+	github.com/cantara/buri v0.12.1
 	github.com/go-git/go-git/v5 v5.9.0
 	golang.org/x/exp v0.0.0-20230213192124-5e25df0256eb
 )
