@@ -7,7 +7,7 @@ toolchain go1.21.0
 require (
 	github.com/cantara/bragi v0.7.2
 	github.com/cantara/buri v0.12.3
-	github.com/go-git/go-git/v5 v5.9.0
+	github.com/go-git/go-git/v5 v5.10.0
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
 )
 
@@ -30,7 +30,7 @@ require (
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/mod v0.13.0 // indirect
-	golang.org/x/net v0.16.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/tools v0.14.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
