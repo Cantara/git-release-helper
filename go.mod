@@ -8,7 +8,7 @@ require (
 	github.com/cantara/bragi v0.8.0
 	github.com/cantara/buri v0.12.5
 	github.com/go-git/go-git/v5 v5.16.3
-	golang.org/x/exp v0.0.0-20251002181428-27f1f14c8bb9
+	golang.org/x/exp v0.0.0-20251009144603-d2f985daa21b
 )
 
 require (
