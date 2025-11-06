@@ -2,7 +2,7 @@ module github.com/cantara/git-release-helper
 
 go 1.24.0
 
-toolchain go1.25.2
+toolchain go1.25.4
 
 require (
 	github.com/cantara/bragi v0.8.0
