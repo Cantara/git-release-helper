@@ -1,6 +1,6 @@
 module github.com/cantara/git-release-helper
 
-go 1.24.0
+go 1.25.0
 
 toolchain go1.25.6
 
@@ -8,7 +8,7 @@ require (
 	github.com/cantara/bragi v0.8.0
 	github.com/cantara/buri v0.12.5
 	github.com/go-git/go-git/v5 v5.16.4
-	golang.org/x/exp v0.0.0-20260112195511-716be5621a96
+	golang.org/x/exp v0.0.0-20260508232706-74f9aab9d74a
 )
 
 require (
